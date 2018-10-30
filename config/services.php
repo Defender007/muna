@@ -16,7 +16,7 @@ return [
     'facebook' => [//add facebook login service
         'client_id' => '550911908681339',
         'client_secret' => '59fd15f78c7f5bad0aad13b21446598f',
-        'redirect' => 'http://localhost:8000/callback',
+        'redirect' => 'http://muna.calminfo.com/callback',
     ],
 
     'mailgun' => [

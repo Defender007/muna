@@ -12,6 +12,21 @@ strong{
   color: lightgreen;
 }
 
+.profilelist{
+  align-content: center;
+  text-align: center;
+}
+
+.profile{
+  color: darkolivegreen;
+}
+
+.adams{
+  border-radius: 100%;
+  width: 80px;
+  height: 75px;
+}
+
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */

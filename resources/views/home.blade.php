@@ -7,6 +7,19 @@
         <div class="col-md-3">
             <div class="card card-block d-flex">
                 <div class="card-header">Profile</div>
+                    
+                <div class="card-body align-items-center justify-content-center">
+                    <div class="profilelist">
+                        <div><img class="rounded-circle adams" src="{{asset('storage/profilepics/profilepic'.Auth::user()->id.'.jpg')}}" alt="profile pic" onerror="this.src='{{asset('img/user_icon.png')}}'" ></div>
+                        <a href="{{ url('/profile') }}"><strong class="profile">{{ Auth::user()->name }}</strong></a>
+                        <p>{{ Auth::user()->bio }}</p>
+                        <hr>
+                        <p>{{ Auth::user()->location}}</p>
+                        
+                        <button class="btn btn-sm btn-primary" style="margin: 2px" data-toggle="modal" data-target="#ProfileViewModal">View Profile</button>
+                        <button class="btn btn-sm btn-success" style="margin: 2px">Create a Tree</button>
+                    </div>
+                </div>
 
                 <div class="card-body align-items-center d-flex justify-content-center">
                     @if (session('status'))
@@ -15,79 +28,64 @@
                         </div>
                     @endif
 
-                    <button class="btn btn-sm btn-primary" style="margin: 2px" data-toggle="modal" data-target="#profileEntryModal">Edit Profile</button>
-                    <button class="btn btn-sm btn-success" style="margin: 2px">Create a Tree</button>
-
                     <!-- Modal -->
-                    <div class="modal fade" id="profileEntryModal" tabindex="-1" role="dialog" aria-labelledby="profileEntryModal" aria-hidden="true">
+                    <div class="modal fade" id="ProfileViewModal" tabindex="-1" role="dialog" aria-labelledby="ProfileViewModal" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Edit your profile</h5>
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Your MUNA Profile</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                
-                                <form method="POST" action="#">
+
+                                <form method="POST" action="/profile">
                                 @csrf
 
                                 <div class="form-group row">
-                                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                                    <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
                                     <div class="col-md-6">
-                                        <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-
-                                        @if ($errors->has('name'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('name') }}</strong>
-                                            </span>
-                                        @endif
+                                        <p id="name">{{ Auth::user()->name }}</p>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                    <label for="bio" class="col-md-4 col-form-label text-md-right">Bio</label>
 
                                     <div class="col-md-6">
-                                        <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                                        <p id="bio">{{ Auth::user()->bio }}</p>
+                                    </div>
+                                </div> 
+                                
+                                <div class="form-group row">
+                                    <label for="location" class="col-md-4 col-form-label text-md-right">Location</label>
 
-                                        @if ($errors->has('email'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('email') }}</strong>
-                                            </span>
-                                        @endif
+                                    <div class="col-md-6">
+                                        <p id="location">{{ Auth::user()->location }}</p>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                    <label for="gender" class="col-md-4 col-form-label text-md-right">Gender</label>
 
                                     <div class="col-md-6">
-                                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                        @if ($errors->has('password'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('password') }}</strong>
-                                            </span>
-                                        @endif
+                                        <p id="location">{{ Auth::user()->gender }}</p>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                                    <label for="contact" class="col-md-4 col-form-label text-md-right">Contact</label>
 
                                     <div class="col-md-6">
-                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                        <p id="contact">{{ Auth::user()->phone_number }}</p>
                                     </div>
                                 </div>
 
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            {{ __('Save changes') }}
-                                        </button>
+                                        <a href="{{ url('/profile') }}" class="btn btn-primary">Edit Profile</a>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>

@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/profile', 'ProfileController@index');
+Route::post('/profile', 'ProfileController@store');
+
 //define route for social(facebook) authentication and callback
 Route::get('/redirect', 'Auth\FacebookController@redirectToFacebook')->name('redirect');//for login
 Route::get('/callback', 'Auth\FacebookController@handleFacebookCallback');//for callback
