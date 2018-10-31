@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Post;
+use App\Comment;
 
 class HomeController extends Controller
 {
@@ -25,7 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $posts = Post::orderBy('created_at','desc')->get();//display posts on homepage with latest first
+
+        $comments = Comment::orderBy('created_at','desc')->get();
+
+        return view('home')->with(['posts'=>$posts , 'comments'=>$comments]);
     }
 
 }

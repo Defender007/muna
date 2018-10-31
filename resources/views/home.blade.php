@@ -14,7 +14,7 @@
                         <a href="{{ url('/profile') }}"><strong class="profile">{{ Auth::user()->name }}</strong></a>
                         <p>{{ Auth::user()->bio }}</p>
                         <hr>
-                        <p>{{ Auth::user()->location}}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> &nbsp {{ Auth::user()->location}}</p>
                         
                         <button class="btn btn-sm btn-primary" style="margin: 2px" data-toggle="modal" data-target="#ProfileViewModal">View Profile</button>
                         <button class="btn btn-sm btn-success" style="margin: 2px">Create a Tree</button>
@@ -106,7 +106,6 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Activity Stream</div>
-
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -114,8 +113,43 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    @include('layouts.errors')
+
+                    <div class="form-group">
+                        <form method="POST" action="/post">
+                            {{ csrf_field() }}
+                            <textarea name="body" class="form-control" placeholder="share your thoughts..." rows="2"></textarea>
+                            <button type="submit" class="btn btn-sm btn-success post-btn">Post</button>
+                        </form>
+                    </div>
+                    <div>
+                        <ul class="list-group list-group-flush">
+                        @foreach($posts as $post)
+                        <li class="list-group-item">{{ $post->body }}
+                        <div>
+                            <form class="form-group" method="POST" action="/comment/{{ $post->post_id }}">
+                                {{ csrf_field() }}
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm"><i class="far fa-comment-alt"></i></span>
+                                    </div>
+                                    <input type="text" name="body" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                    <button class="btn btn-sm btn-outline-default float-right" type="submit">comment</button>
+                                </div>
+                            </form>
+                        </div>
+                        <p> 
+                            <i class="fas fa-thumbs-up"></i>
+                                <span><small>like</small></span>&nbsp
+                            <i class="fas fa-share-alt"></i>
+                                <span><small>share</small></span>
+                        <br>
+                        <em><small>at - {{ $post->created_at->diffForHumans() }}</small></em></p></li>
+                        @endforeach
+                        </ul>
+                    </div>
                 </div>
+
             </div>
         </div>
 
