@@ -18,7 +18,7 @@ class CommentsController extends Controller
         Comment::create([
 
             'body' => $request->input('body'),
-            'post_id' => $post_id->post_id
+            'post_id' => $post_id->id
         ]);
 
         return redirect('home');

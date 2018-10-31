@@ -104,7 +104,7 @@
         </div>
 
         <div class="col-md-6">
-            <div class="card">
+            <div class="card cardspacing text-white bg-dark">
                 <div class="card-header">Activity Stream</div>
                 <div class="card-body">
                     @if (session('status'))
@@ -122,35 +122,49 @@
                             <button type="submit" class="btn btn-sm btn-success post-btn">Post</button>
                         </form>
                     </div>
-                    <div>
-                        <ul class="list-group list-group-flush">
-                        @foreach($posts as $post)
-                        <li class="list-group-item">{{ $post->body }}
-                        <div>
-                            <form class="form-group" method="POST" action="/comment/{{ $post->post_id }}">
-                                {{ csrf_field() }}
-                                <div class="input-group input-group-sm mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-sm"><i class="far fa-comment-alt"></i></span>
-                                    </div>
-                                    <input type="text" name="body" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                                    <button class="btn btn-sm btn-outline-default float-right" type="submit">comment</button>
-                                </div>
-                            </form>
-                        </div>
-                        <p> 
-                            <i class="fas fa-thumbs-up"></i>
-                                <span><small>like</small></span>&nbsp
-                            <i class="fas fa-share-alt"></i>
-                                <span><small>share</small></span>
-                        <br>
-                        <em><small>at - {{ $post->created_at->diffForHumans() }}</small></em></p></li>
-                        @endforeach
-                        </ul>
-                    </div>
                 </div>
-
             </div>
+
+            <!--<div class="card">-->
+                        @foreach($posts as $post)
+                            <div class="card cardspacing">
+                            <div class="card-body">
+                                {{ $post->body }}
+                            <div>
+                                <form class="form-group" method="POST" action="/comment/{{ $post->id }}">
+                                    {{ csrf_field() }}
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm"><i class="far fa-comment-alt"></i></span>
+                                        </div>
+                                        <input type="text" name="body" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                        <button class="btn btn-sm btn-outline-default float-right" type="submit">comment</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <p> 
+                                <i class="fas fa-thumbs-up"></i>
+                                    <span><small>like</small></span>&nbsp
+                                <i class="fas fa-share-alt"></i>
+                                    <span><small>share</small></span>
+                            <br>
+                            <em><small>at - {{ $post->created_at->diffForHumans() }}</small></em></p></div>
+
+                            @if(count($post->comments))
+                            <div class="card bg-light">
+                                <ul>
+                                    @foreach($post->comments as $comment)
+                                    <li>
+                                    {{ $comment->body }} <em><small>at - {{ $comment->created_at->diffForHumans() }}</small></em>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+                            </div> 
+                        @endforeach
+            <!--</div>-->
+
         </div>
 
         <div class="col-md-3">

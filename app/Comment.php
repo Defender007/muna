@@ -10,7 +10,7 @@ class Comment extends Model
 
     protected $fillable = ['body','post_id'];
     
-    public function posts(){
+    public function post(){
 
         return $this->belongsTo(Post::class);
     }

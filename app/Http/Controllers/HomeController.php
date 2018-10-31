@@ -29,9 +29,7 @@ class HomeController extends Controller
     {
         $posts = Post::orderBy('created_at','desc')->get();//display posts on homepage with latest first
 
-        $comments = Comment::orderBy('created_at','desc')->get();
-
-        return view('home')->with(['posts'=>$posts , 'comments'=>$comments]);
+        return view('home')->with('posts',$posts);
     }
 
 }
