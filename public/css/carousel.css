@@ -18,7 +18,7 @@ strong{
 }
 
 .profile{
-  color: darkolivegreen;
+  color: black;
 }
 
 .adams{
@@ -31,6 +31,18 @@ strong{
   border-radius: 100%;
   width: 45px;
   height: 45px;
+}
+
+.post_image{
+  display: flex;
+}
+
+.userpost{
+  margin-left: 10px;
+}
+
+.userpost > em > small{
+  display: block;
 }
 
 .post-btn{

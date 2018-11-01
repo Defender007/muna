@@ -130,9 +130,10 @@
                 <div class="card cardspacing">
                     <div class="card-body cardtopborder">
 
-                        <img class="rounded-circle adams2" src="{{asset('storage/'.$post->user->picture)}}" alt="profile pic" onerror="this.src='{{asset('img/user_icon.png')}}'" >
+                        <div class="post_image"><img class="rounded-circle adams2" src="{{asset('storage/'.$post->user->picture)}}" alt="profile pic" onerror="this.src='{{asset('img/user_icon.png')}}'" >
 
-                        <span>{{ $post->body }} <em><small>by {{ $post->user->name }}</small></em></span>
+                        <span class="userpost">{{ $post->body }} <em><small>by <strong class="profile">{{ $post->user->name }}</strong></small></em></span></div>
+
                             <div>
                                 <form class="form-group" autocomplete="off" method="POST" action="/comment/{{ $post->id }}">
                                     {{ csrf_field() }}
@@ -155,16 +156,20 @@
                             <em><small>at - {{ $post->created_at->diffForHumans() }}</small></em></p></div>
 
                             @if(count($post->comments))
-                            <div class="card-header">
-                            <ul>
-                            @foreach($post->comments as $comment)
-                            <li>
-                            {{ $comment->body }} <em><small> - {{ $comment->created_at->diffForHumans() }} by {{ $comment->user->name }}</small></em>
-                            </li>
-                            @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                            <a class="btn btn-secondary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">View all comments</a>
+
+                            <div class="collapse" id="collapseExample">
+                                <div class="card-header">
+                                    <ul class="list-group">
+                                        @foreach($post->comments as $comment)
+                                        <li class="list-group-item">
+                                        {{ $comment->body }} <em><small> - {{ $comment->created_at->diffForHumans() }} by <strong class="profile">{{ $comment->user->name }}</strong></small></em>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            @endif
                 </div> 
             @endforeach
         </div>
