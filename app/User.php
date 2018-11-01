@@ -28,4 +28,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    //define relationship with posts
+    public function post(){
+
+        return $this->hasMany(Post::class);
+    }
+
+    //define relationship with comments
+    public function comments(){
+
+        return $this->hasMany(Comment::class);
+    }
+
 }

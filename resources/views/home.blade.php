@@ -6,7 +6,7 @@
 
         <div class="col-md-3">
             <div class="card card-block d-flex">
-                <div class="card-header">Profile</div>
+                <div class="card-header text-white bg-primary">Profile</div>
                     
                 <div class="card-body align-items-center justify-content-center">
                     <div class="profilelist">
@@ -104,9 +104,9 @@
         </div>
 
         <div class="col-md-6">
-            <div class="card cardspacing text-white bg-dark">
-                <div class="card-header">Activity Stream</div>
-                <div class="card-body">
+            <div class="card cardspacing">
+                <div class="card-header text-white bg-primary">Activity Stream</div>
+                <div class="card-body text-white bg-dark">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -116,8 +116,9 @@
                     @include('layouts.errors')
 
                     <div class="form-group">
-                        <form method="POST" action="/post">
+                        <form method="POST" action="/post" autocomplete="off">
                             {{ csrf_field() }}
+                            <input autocomplete="false" name="hidden" type="text" style="display:none;">
                             <textarea name="body" class="form-control" placeholder="share your thoughts..." rows="2"></textarea>
                             <button type="submit" class="btn btn-sm btn-success post-btn">Post</button>
                         </form>
@@ -125,14 +126,14 @@
                 </div>
             </div>
 
-            <!--<div class="card">-->
-                        @foreach($posts as $post)
-                            <div class="card cardspacing">
-                            <div class="card-body">
-                                {{ $post->body }}
+            @foreach($posts as $post)
+                <div class="card cardspacing">
+                    <div class="card-body cardtopborder">
+                        <span>{{ $post->body }} <em><small>by {{ $post->user->name }}</small></em></span>
                             <div>
-                                <form class="form-group" method="POST" action="/comment/{{ $post->id }}">
+                                <form class="form-group" autocomplete="off" method="POST" action="/comment/{{ $post->id }}">
                                     {{ csrf_field() }}
+                                    <input autocomplete="false" name="hidden" type="text" style="display:none;">
                                     <div class="input-group input-group-sm mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-sm"><i class="far fa-comment-alt"></i></span>
@@ -143,33 +144,31 @@
                                 </form>
                             </div>
                             <p> 
-                                <i class="fas fa-thumbs-up"></i>
-                                    <span><small>like</small></span>&nbsp
-                                <i class="fas fa-share-alt"></i>
-                                    <span><small>share</small></span>
+                            <i class="fas fa-thumbs-up"></i>
+                                <span><small>like</small></span>&nbsp
+                            <i class="fas fa-share-alt"></i>
+                                <span><small>share</small></span>
                             <br>
                             <em><small>at - {{ $post->created_at->diffForHumans() }}</small></em></p></div>
 
                             @if(count($post->comments))
-                            <div class="card bg-light">
-                                <ul>
-                                    @foreach($post->comments as $comment)
-                                    <li>
-                                    {{ $comment->body }} <em><small>at - {{ $comment->created_at->diffForHumans() }}</small></em>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
-                            </div> 
-                        @endforeach
-            <!--</div>-->
-
+                            <div class="card-header">
+                            <ul>
+                            @foreach($post->comments as $comment)
+                            <li>
+                            {{ $comment->body }} <em><small> - {{ $comment->created_at->diffForHumans() }} by {{ $comment->user->name }}</small></em>
+                            </li>
+                            @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div> 
+            @endforeach
         </div>
 
         <div class="col-md-3">
             <div class="card">
-                <div class="card-header">Events</div>
+                <div class="card-header text-white bg-primary">Events</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -178,7 +177,21 @@
                         </div>
                     @endif
 
-                    Event stream
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Notifications
+                            <span class="badge badge-primary badge-pill">14</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Family requests
+                            <span class="badge badge-primary badge-pill">2</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Events
+                            <span class="badge badge-primary badge-pill">1</span>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         </div>

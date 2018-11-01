@@ -35,6 +35,10 @@ strong{
   margin-bottom: 10px;
 }
 
+.cardtopborder{
+  border-top: 3px solid #606060;
+}
+
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
