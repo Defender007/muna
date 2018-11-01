@@ -129,6 +129,9 @@
             @foreach($posts as $post)
                 <div class="card cardspacing">
                     <div class="card-body cardtopborder">
+
+                        <img class="rounded-circle adams2" src="{{asset('storage/'.$post->user->picture)}}" alt="profile pic" onerror="this.src='{{asset('img/user_icon.png')}}'" >
+
                         <span>{{ $post->body }} <em><small>by {{ $post->user->name }}</small></em></span>
                             <div>
                                 <form class="form-group" autocomplete="off" method="POST" action="/comment/{{ $post->id }}">

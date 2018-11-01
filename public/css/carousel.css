@@ -27,6 +27,12 @@ strong{
   height: 75px;
 }
 
+.adams2{
+  border-radius: 100%;
+  width: 45px;
+  height: 45px;
+}
+
 .post-btn{
   margin-top: 5px;
 }
